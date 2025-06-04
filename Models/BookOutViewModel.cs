@@ -1,10 +1,8 @@
 namespace bookish.Models;
 
-public class BookViewModel
+public class BookOutViewModel
 {
     public string? RequestId { get; set; }
 
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-    public List<Book>? Book { get; set; }
 }

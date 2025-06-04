@@ -1,18 +1,20 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using bookish.Models;
+using BookishDB;
 
 namespace bookish.Controllers;
 
 public class HomeController : Controller
 {
+    
     private readonly ILogger<HomeController> _logger;
-    //private readonly BookishContext _dbContext;
+    private readonly BookishDBContext _context;
 
-    public HomeController(ILogger<HomeController> logger/*, BookishContext dbContext*/)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        //_dbContext = dbContext
+        _context = new BookishDBContext();
     }
 
     public IActionResult Index()
@@ -31,11 +33,12 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-        public IActionResult Data()
-    {
-      //  var books = dbContext.Books.Where(book => book.Title = "A thing");
-       // var viewModel = new BookViewModel { Books = books };
-       // return View(viewModel);
-       return View();
+    public IActionResult Book(){
+        var books = _context.Books.ToList();
+        return View(new BookViewModel { Book = books });
     }
+    // public IActionResult Book(){
+    //     var books = _context.Books.ToList();
+    //     return View(new BookViewModel { Book = books });
+    // }
 }

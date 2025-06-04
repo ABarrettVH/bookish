@@ -1,0 +1,23 @@
+@model BookViewModel
+@{
+    ViewData["Title"] = "Book";
+}
+
+<h1 class="text-danger">Books</h1>
+
+@if (Model.Book != null)
+{
+    <p>
+        @foreach (var book in Model.Book)
+        {
+            <strong>Book ID:</strong> <code>@book.BookID</code><br />
+            <strong>Book Title:</strong> <code>@book.Title</code><br />
+            <strong>Book Author:</strong> <code>@book.Author</code><br />
+            <strong>Available Copies:</strong> <code>@book.AvailableCopies</code><br />
+            <hr />
+        }
+    </p>
+}
+
+
+

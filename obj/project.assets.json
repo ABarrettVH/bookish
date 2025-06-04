@@ -2895,11 +2895,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AliBar\\Documents\\Training\\bookish\\bookish.csproj",
+      "projectUniqueName": "C:\\Users\\AliBar\\Documents\\Training\\bookish_V1\\bookish.csproj",
       "projectName": "bookish",
-      "projectPath": "C:\\Users\\AliBar\\Documents\\Training\\bookish\\bookish.csproj",
+      "projectPath": "C:\\Users\\AliBar\\Documents\\Training\\bookish_V1\\bookish.csproj",
       "packagesPath": "C:\\Users\\AliBar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AliBar\\Documents\\Training\\bookish\\obj\\",
+      "outputPath": "C:\\Users\\AliBar\\Documents\\Training\\bookish_V1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\AliBar\\AppData\\Roaming\\NuGet\\NuGet.Config"
