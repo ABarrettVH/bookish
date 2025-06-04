@@ -12,10 +12,10 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly BookishDBContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, BookishDBContext context)
     {
         _logger = logger;
-        _context = new BookishDBContext();
+        _context = context;
     }
 
     public IActionResult Index()
@@ -34,25 +34,37 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 
-    public IActionResult Book()
+    public IActionResult Book(string searchString)
     {
-        var books = _context.Books.ToList();
-        return View(new BookViewModel { Book = books });
+        List<Book> books; //_context.Books.ToList();
+
+        if (!String.IsNullOrEmpty(searchString))
+        {
+            books = _context.Books.Where(b => b.Author.Contains(searchString)
+                                   || b.Title.Contains(searchString)).ToList();
+
+            
+            books = books.OrderBy(b => b.Author).ToList();
+            return View(new BookViewModel { Book = books });
+        }
+        else {
+            books = _context.Books.ToList();
+    return View(new BookViewModel { Book = books });
+        }
     }
 
-    public IActionResult AddBook(AddBookViewModel addbooks) {
+    public IActionResult AddBook(AddRemoveBookViewModel addbooks)
+    {
         string? Message = null;
-       
-                using (var context = new BookishDBContext())
-        {
-            Book? book = context.Books.FirstOrDefault(book => book.Title == addbooks.Title && book.Author == addbooks.Author);
+
+            Book? book = _context.Books.FirstOrDefault(book => book.Title == addbooks.Title && book.Author == addbooks.Author);
             if (book == null && addbooks.Title != null && addbooks.Author != null)
             {
                 book = new Book() { Title = addbooks.Title, Author = addbooks.Author, Copies = addbooks.NumberCopies, AvailableCopies = addbooks.NumberCopies };
-                context.Books.Add(book);
+                _context.Books.Add(book);
 
-                context.SaveChanges();
-                Message = "New book added";
+                _context.SaveChanges();
+                addbooks.Message = "New book added";
             }
             else
             {
@@ -60,14 +72,42 @@ public class HomeController : Controller
                 {
                     book.Copies += addbooks.NumberCopies;
                     book.AvailableCopies += addbooks.NumberCopies;
-                    context.SaveChanges();
-                    Message = "Copy number updated";
+                    _context.SaveChanges();
+                    addbooks.Message = "Copy number updated";
                 }
             }
-        }
 
 
-        return View(new AddBookViewModel { Message=Message });
+        return View(addbooks);
+    }
+    
+        public IActionResult RemoveBook(AddRemoveBookViewModel addbooks) {
+        addbooks.Message = null;
+       
+            Book? book = _context.Books.FirstOrDefault(book => book.Title == addbooks.Title && book.Author == addbooks.Author);
+            if (book == null && addbooks.Title != null)
+            {
+                addbooks.Message = "Book doesn't exist";
+            }
+            else
+            {
+                
+                if (book != null && addbooks.Title != null && addbooks.Author != null)
+                {
+                    addbooks.Message = $"Copy number reduced: {book.Copies} books left";
+
+                    book.Copies -= addbooks.NumberCopies;
+                    book.AvailableCopies -= addbooks.NumberCopies;
+                    if (book.Copies <= 0)
+                    {
+                        _context.Books.Remove(book);
+                        addbooks.Message = "Book deleted from catalogue";
+                    }
+                    _context.SaveChanges();
+                }
+            }
+        
+        return View(addbooks);
     }
 
 }

@@ -8,6 +8,8 @@ public class BookViewModel
 
     public List<Book>? Book { get; set; }
 
+    public string? searchString { get; set; }
+
 
 
 }

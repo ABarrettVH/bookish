@@ -1,4 +1,4 @@
-@model AddBookViewModel
+@model AddRemoveBookViewModel
 @* @using HomeController *@
 @{
     ViewData["Title"] = "AddBook";
@@ -6,8 +6,8 @@
 
 <h1 class="text-danger">Librarian</h1>
 
-    <h2>Add a book to the catalogue . . .</h2>
-    <form asp-controller="Home" asp-action="AddBook" >
+    <h2>Remove a book from the catalogue . . .</h2>
+    <form asp-controller="Home" asp-action="RemoveBook" >
     <label>
         <p>Title</p>
         <input id="Title" type=text name="Title" required/>

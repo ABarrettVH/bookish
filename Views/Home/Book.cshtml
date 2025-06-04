@@ -5,14 +5,21 @@
 
 <h1 class="text-danger">Books</h1>
 
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")  
+        <input type="submit" value="Search" /></p>
+}
+
 @if (Model.Book != null)
 {
     <p>
         @foreach (var book in Model.Book)
         {
-            <strong>Book ID:</strong> <code>@book.BookID</code><br />
-            <strong>Book Title:</strong> <code>@book.Title</code><br />
-            <strong>Book Author:</strong> <code>@book.Author</code><br />
+            @* <strong>Book ID:</strong> <code>@book.BookID</code><br /> *@
+            <strong>Title:</strong> <code>@book.Title</code><br />
+            <strong>Author:</strong> <code>@book.Author</code><br />
             <strong>Total Copies:</strong> <code>@book.Copies</code><br />
             <strong>Available Copies:</strong> <code>@book.AvailableCopies</code><br />
             <hr />

@@ -1,6 +1,6 @@
 namespace bookish.Models;
 
-public class AddBookViewModel
+public class AddRemoveBookViewModel
 {
 
     public List<Book>? Book { get; set; }
