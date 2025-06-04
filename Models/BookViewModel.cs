@@ -7,4 +7,7 @@ public class BookViewModel
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
     public List<Book>? Book { get; set; }
+
+
+
 }

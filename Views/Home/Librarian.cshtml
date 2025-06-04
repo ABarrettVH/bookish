@@ -1,0 +1,33 @@
+@model LibrarianViewModel
+@* @using HomeController *@
+@{
+    ViewData["Title"] = "Librarian";
+}
+
+<h1 class="text-danger">Librarian</h1>
+
+    <h2>Add a book to the catalogue . . .</h2>
+    <form asp-controller="Home" asp-action="AddBook" >
+    <label>
+        <p>Title</p>
+        <input id="Title" type=text name="Title" required/>
+    </label>
+
+    <label>
+        <p>Author</p>
+        <input id="Author" type=text name="Author" required/>
+    </label>
+
+    </label>
+        <p>Number of Copies</p>
+        <input id="NumberCopies" type=int name="NumberCopies"/>
+    </label>
+    <button type="submit" id="submit">Submit</button>
+    </form>
+         
+
+
+
+
+
+  

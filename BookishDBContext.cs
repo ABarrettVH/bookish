@@ -13,7 +13,7 @@ namespace BookishDB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         { 
             // This is the configuration used for connecting to the database
-            optionsBuilder.UseNpgsql(@"Server=localhost;Port=5432;Database=bookish;User Id=bookish;Password=bookish;");
+            optionsBuilder.UseNpgsql(@"Server=localhost;Port=5400;Database=bookish;User Id=bookish;Password=bookish;");
         }
     }
 }
