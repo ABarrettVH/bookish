@@ -40,33 +40,34 @@ public class HomeController : Controller
         return View(new BookViewModel { Book = books });
     }
 
-    public IActionResult Librarian() {
-        var books = _context.Books.ToList();
-
-        return View(new LibrarianViewModel { Book = books });
-    }
-
-    public IActionResult AddBook(LibrarianViewModel addbooks) {
-        using (var context = new BookishDBContext())
+    public IActionResult AddBook(AddBookViewModel addbooks) {
+        string? Message = null;
+       
+                using (var context = new BookishDBContext())
         {
-  
             Book? book = context.Books.FirstOrDefault(book => book.Title == addbooks.Title && book.Author == addbooks.Author);
-            if (book == null && addbooks.Title != null && addbooks.Author !=null) {
+            if (book == null && addbooks.Title != null && addbooks.Author != null)
+            {
                 book = new Book() { Title = addbooks.Title, Author = addbooks.Author, Copies = addbooks.NumberCopies, AvailableCopies = addbooks.NumberCopies };
                 context.Books.Add(book);
 
                 context.SaveChanges();
-                return View();
-
+                Message = "New book added";
             }
-            else {
-                book.Copies += addbooks.NumberCopies;
-                book.AvailableCopies += addbooks.NumberCopies;
-                context.SaveChanges();
-                return View();
+            else
+            {
+                if (book != null)
+                {
+                    book.Copies += addbooks.NumberCopies;
+                    book.AvailableCopies += addbooks.NumberCopies;
+                    context.SaveChanges();
+                    Message = "Copy number updated";
+                }
             }
-
-
         }
+
+
+        return View(new AddBookViewModel { Message=Message });
     }
+
 }

@@ -11,6 +11,8 @@ public class LibrarianViewModel
     public string? Title { get; set; }
     public string? Author { get; set; }
     public int NumberCopies { get; set; }
+    
+    public string? Message { get; set; }
 
 } 
 
