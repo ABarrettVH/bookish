@@ -1,0 +1,34 @@
+@model MemberViewModel
+@{
+    ViewData["Title"] = "Member";
+}
+
+<h1 class="text-danger">Members</h1>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")  
+        <input type="submit" value="Search" /></p>
+}
+
+@if (Model.Members != null)
+{
+    <p>
+        @foreach (var member in Model.Members)
+        {
+            @* <strong>Book ID:</strong> <code>@book.BookID</code><br /> *@
+            <strong>Name: </strong> <code>@member.Name</code><br />
+            <strong>Phone: </strong> <code>@member.Phone</code><br />
+            <strong>Email: </strong> <code>@member.email</code><br />
+            <strong>Books checked out: </strong>
+            @if (Model.BooksOut != null) {
+                @foreach (var book in Model.BooksOut) {
+                    <code>@book.Title</code><br />
+                    <code>@book.Author</code><br />
+                }
+            }
+            <hr />
+        }
+    </p>
+}

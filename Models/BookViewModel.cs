@@ -2,14 +2,15 @@ namespace bookish.Models;
 
 public class BookViewModel
 {
-    public string? RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
     public List<Book>? Book { get; set; }
 
-    public string? searchString { get; set; }
+    public Book? ABook { get; set; }
 
 
-
+    public string? Title { get; set; }
+    public string? Author { get; set; }
+    public int NumberCopies { get; set; }
+    
+    public string? Message { get; set; }
 }

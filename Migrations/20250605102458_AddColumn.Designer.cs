@@ -3,6 +3,7 @@ using System;
 using BookishDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace bookish.Migrations
 {
     [DbContext(typeof(BookishDBContext))]
-    partial class BookishDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250605102458_AddColumn")]
+    partial class AddColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,11 +43,16 @@ namespace bookish.Migrations
                     b.Property<int>("Copies")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("MemberID")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("BookID");
+
+                    b.HasIndex("MemberID");
 
                     b.ToTable("Books");
                 });
@@ -99,6 +107,13 @@ namespace bookish.Migrations
                     b.ToTable("Members");
                 });
 
+            modelBuilder.Entity("Book", b =>
+                {
+                    b.HasOne("Member", null)
+                        .WithMany("BooksOut")
+                        .HasForeignKey("MemberID");
+                });
+
             modelBuilder.Entity("BookOut", b =>
                 {
                     b.HasOne("Book", "Book")
@@ -116,6 +131,11 @@ namespace bookish.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Member");
+                });
+
+            modelBuilder.Entity("Member", b =>
+                {
+                    b.Navigation("BooksOut");
                 });
 #pragma warning restore 612, 618
         }

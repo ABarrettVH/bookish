@@ -12,4 +12,6 @@ public class BookOut
 
     public int BookID { get; set; }
     public Book? Book { get; set; }
+
+    public DateOnly DueDate { get; set;}
 }

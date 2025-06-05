@@ -1,9 +1,0 @@
-namespace bookish.Models;
-
-public class MemberViewModel
-{
-    public string? RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    public List<Member>? Members {get; set;}
-}

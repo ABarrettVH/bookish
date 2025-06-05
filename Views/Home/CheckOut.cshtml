@@ -1,0 +1,37 @@
+@model CheckOutViewModel
+@{
+    ViewData["Title"] = "CheckOut";
+}
+
+
+    <h2>Check out a book . . .</h2>
+    <form asp-controller="Home" asp-action="CheckOut" >
+    <label>
+        <p>Title</p>
+        <input id="Title" type=text name="Title" />
+    </label>
+
+    <label>
+        <p>Author</p>
+        <input id="Author" type=text name="Author" />
+    </label>
+    
+    <p>or</p>
+
+    <label>
+        <p>Book ID</p>
+        <input id="BookID" type=int name="BookID" />
+    </label>
+
+
+    <label>
+        <p>Member ID</p>
+        <input id="MemberID" type=int name="MemberID" required/>
+    </label>
+
+    <button type="submit" id="submit">Submit</button>
+    </form>
+
+    @if (Model.Message != null) {
+        <h3><code>@Model.Message</code></h3>
+}
